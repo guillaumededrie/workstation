@@ -2,5 +2,8 @@
   "assignees": ["guillaumededrie"],
   "compatibility": {
     "python": "2.7"
-  }
+  },
+  "extends": [
+    "config:base"
+  ]
 }
