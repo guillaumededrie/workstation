@@ -1,0 +1,6 @@
+{
+  "assignees": ["guillaumededrie"],
+  "compatibility": {
+    "python": "2.7"
+  }
+}
