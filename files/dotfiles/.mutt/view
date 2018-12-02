@@ -1,0 +1,20 @@
+# Index View Options ---------------------------------
+set date_format = "%d/%m/%Y"
+set index_format = "[%Z]  %D  %-20.20F  %s"
+set sort = threads
+set sort_aux = last-date-received
+set uncollapse_jump
+set sort_re
+set reply_regexp = "^(([Rr][Ee]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
+
+ignore *
+unignore From: To: subject date  cc reply-to
+unignore User-Agent:  X-Spam-Status:
+
+unhdr_order *
+hdr_order Subject: Date: From: To: Cc: Bcc: User-Agent: X-Spam-Status:
+
+# prefer plain text
+ alternative_order text/plain text/enriched text/html
+# auto convert text/html MIME type to text/plain
+auto_view text/html

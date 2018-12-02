@@ -1,0 +1,39 @@
+[colors]
+  foreground_bold=#ffffff
+  foreground=#dcdccc
+  color13=#ec93d3
+  color0=#3f3f3f
+  color8=#709080
+  color6=#8cd0d3
+  background=#3f3f3f
+  color1=#705050
+  color14=#93e0e3
+  color3=#dfaf8f
+  color2=#60b48a
+  color11=#f0dfaf
+  color4=#506070
+  color7=#dcdccc
+  color12=#94bff3
+  color9=#dca3a3
+  highlight=#2f2f2f
+  color5=#dc8cc3
+  color15=#ffffff
+  color10=#c3bf9f
+
+[options]
+  filter_unmatched_urls=True
+  search_wrap=True
+  resize_grip=False
+  visible_bell=False
+  mouse_autohide=True
+  allow_bold=True
+  audible_bell=True
+  cursor_shape=block
+  clickable_url=True
+  scroll_on_output=False
+  urgent_on_bell=True
+  dynamic_title=True
+  scroll_on_keystroke=True
+  font=Inconsolata 12
+  scrollback_lines=10000
+  cursor_blink=system

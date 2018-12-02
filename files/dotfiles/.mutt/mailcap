@@ -1,0 +1,4 @@
+# auto view using w3m
+text/html; w3m -I %{charset} -T text/html; copiousoutput;
+application/pdf; zathura %s
+image/*; feh %s; test=test -n "$DISPLAY"
