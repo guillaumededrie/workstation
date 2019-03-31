@@ -1,0 +1,22 @@
+---
+
+- name: User | Add and configure users
+  tags: ['user']
+  become: yes
+  user:
+    name: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+    groups:
+      - adm
+      - libvirt # For passwordless access to the libvirt socket
+      - log
+      - sys
+      - users
+      - wireshark
+
+- name: GPG Smartcard | Start and enable pcscd
+  become: yes
+  service:
+    name: pcscd.socket
+    state: started
+    enabled: yes

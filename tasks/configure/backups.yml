@@ -1,0 +1,47 @@
+---
+
+
+- name: Backups | Install Borgmatic
+  become: yes
+  pip:
+    name: borgmatic
+    # Not specifying the executable will install the borgmatic package in the virtualenv you are using.
+    executable: /usr/bin/pip3
+    state: present
+
+- name: Backups | Create Borgmatic config directory
+  become: yes
+  file:
+    path: /etc/borgmatic.d
+    state: directory
+
+- name: Backups | Add backup config file
+  become: yes
+  file:
+    src: ./files/backups/borgmatic-backups.yml
+    dest: /etc/borgmatic.d/backups.yml
+    state: link
+
+- name: Backups | Install SystemD units
+  become: yes
+  file:
+    src: "{{ item | realpath }}"
+    dest: "/etc/systemd/system/{{ item | basename }}"
+    state: link
+  with_fileglob: ./files/backups/systemd/*
+  register: backups_systemd_files
+
+  # TODO: Use Handlers instead
+- when: backups_systemd_files is changed
+  name: Backups | Reload SystemD daemon
+  become: yes
+  systemd:
+    daemon_reload: yes
+
+- when: backups_systemd_files is changed
+  name: Backups | Enable SystemD services
+  become: yes
+  systemd:
+    name: perform-backup.timer
+    enabled: yes
+    state: started
