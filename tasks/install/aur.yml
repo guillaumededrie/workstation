@@ -1,0 +1,19 @@
+---
+
+# il faut git clone le repo https://github.com/kewlfft/ansible-aur
+#
+- name: AUR | Install yay to manage AUR packages
+  aur:
+    name: yay
+    use: makepkg
+    skip_installed: true
+  #become: yes
+  #become_user: "{{ ansible_user_id }}"
+
+- name: AUR | Install standalone packages
+  aur:
+    name: "{{ item }}"
+  with_items:
+    - borg-git # For backup
+    - google-chrome
+    - spotify

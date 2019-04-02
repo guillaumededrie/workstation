@@ -1,0 +1,167 @@
+---
+
+- name: Update Pacman Cache
+  become: yes
+  pacman:
+    update_cache: yes
+
+- name: Install standalone packages
+  become: yes
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    # TODO: Commented due to https://github.com/ansible/ansible/issues/24110
+    #- dnsutils # host, bind
+
+
+    # System
+    - base-devel
+    - linux-headers
+
+
+      # Fonts
+    - font-mathematica
+    - terminus-font
+    - ttf-bitstream-vera
+    - ttf-dejavu
+    - ttf-droid
+    - ttf-freefont
+    - ttf-gentium
+    - ttf-inconsolata
+    - ttf-liberation
+    - ttf-linux-libertine
+    - noto-fonts-emoji
+    #- ttf-symbola # Removed from official repositories (https://bugs.archlinux.org/task/58886)
+
+    # Miscs
+    - arandr # For X11 managing
+    - ccid # For Yubikey support
+    - fzf
+    - inotify-tools
+    - kbd # Fonts
+    - keepassx
+    - libu2f-host # Used by Chrome for U2F
+    - pcsclite # For Yubikey
+    - pinentry # For Yubikey and others
+    - pwgen
+    - sshpass
+    - termite
+    - termite-terminfo
+    - the_silver_searcher
+    - tree
+    - usbmuxd # For iPhone (USB Tethering)
+    - wget
+    - whois
+
+
+    # Filesystem
+    - atool # For managing archives
+    - dosfstools # For Fat32 partitioning
+    - exfat-utils
+    - gparted
+    - hdparm
+    - lsof
+    - mlocate
+    - ntfs-3g
+    - p7zip
+    - zip
+
+
+    # Networks
+    - bridge-utils
+    #- bluez # Blueetooth
+    #- bluez-utils # Bluetooth
+    - dnsmasq
+    - ebtables # For bridges
+    - iptables
+    - libimobiledevice # iPhone USB Tethering
+    - nmap
+    - openbsd-netcat
+    - openldap
+    - openssh
+    - openvpn
+    #- proxychains-ng
+    - socat
+    - tcpdump
+    - wireshark-qt
+    - wpa_supplicant
+
+
+    # Office
+    - cups
+    - feh
+    - hplip
+    - hunspell # For libreoffice spell checking
+    - hunspell-fr
+    - hyphen # For Libreoffice hyphenation rules
+    - hyphen-en
+    - hyphen-fr
+    - imlib2 # For ranger
+    - libmythes # Thesaurus for Libreoffice
+    - libreoffice-fresh
+    - mupdf
+    - mythes-en # Thesaurus related to Libreoffice (libmythes)
+    - mythes-fr # Thesaurus related to Libreoffice (libmythes)
+    - neomutt
+    - pandoc
+    - perl-image-exiftool
+    - poppler
+    - poppler-glib # For GIMP, see: https://wiki.archlinux.org/index.php/GIMP#GIMP_PDF_editing_doesn.27t_work
+    - ranger
+    - texlive-lang
+    - texlive-most
+    - zathura
+    - zathura-pdf-mupdf
+    - w3m # For neomutt email to text generation
+    - weechat
+
+
+    # Media
+    - gimp
+    - imagemagick
+    - vlc
+
+
+    # Dev
+    - diff-so-fancy
+    - docker
+    - docker-compose
+    - git
+    - git-lfs
+    - libvirt
+    - ipython
+    - nodejs
+    - python-pip
+    - python-virtualenvwrapper
+    - qemu
+    - tmux
+    - vagrant
+    - vim
+    - virtualbox
+    #- virtualbox-host-modules-arch # Conflict with dkms, should be install with command
+
+
+    # Monitoring
+    - glances
+    - htop
+
+
+    # Desktop
+    - dmenu # For i3
+    - i3-wm
+    - i3status
+    - i3lock
+    - xf86-input-libinput
+    - xf86-video-intel
+    - xorg-apps
+    - xorg-server
+    - xorg-xinit
+
+
+    # Audio
+    - alsa-lib
+    - alsa-utils
+    - alsa-plugins
+    - pulseaudio-alsa
+    - pulsemixer

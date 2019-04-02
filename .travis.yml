@@ -1,10 +1,13 @@
 ---
 
+dist: xenial
 language: python
-python: "2.7"
+python: "3.7"
 
+env: PIPENV_IGNORE_VIRTUALENVS=1 # See https://travis-ci.community/t/issue-pipenv-check-fails-due-to-numpy/2120/2
+
+before_install: pip install pipenv
 install:
-  - pip install -r requirements.txt
-
-script:
-  - ansible-lint setup.yml
+  - pipenv install --dev
+  - pipenv check
+script: pipenv run ansible-lint setup.yml

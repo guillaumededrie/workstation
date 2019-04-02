@@ -1,0 +1,38 @@
+---
+
+- name: Iptables | Copying configuration files
+  become: yes
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: root
+    group: root
+    mode: 0600
+  with_items:
+    - src: ./files/iptables/ipv4.rules.j2
+      dest: /etc/iptables/iptables.rules
+    - src: ./files/iptables/ipv6.rules.j2
+      dest: /etc/iptables/ip6tables.rules
+  register: firewall_rules
+
+- name: Iptables | Restart services
+  become: yes
+  service:
+    name: "{{ item }}"
+    state: restarted
+  ignore_errors: True
+  loop:
+    - iptables
+    - ip6tables
+    - docker
+  when: firewall_rules is changed
+
+- name: Iptables | Enable services
+  become: yes
+  service:
+    name: "{{ item }}"
+    enabled: yes
+  loop:
+    - iptables
+    - ip6tables
+
