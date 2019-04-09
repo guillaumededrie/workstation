@@ -3,6 +3,9 @@
 - hosts: localhost
   connection: local
   tasks:
+    - tags: ['pacman']
+      import_tasks: tasks/configure/pacman.yml
+
     - tags: ['packages']
       import_tasks: tasks/install/packages.yml
 

@@ -1,10 +1,5 @@
 ---
 
-- name: Update Pacman Cache
-  become: yes
-  pacman:
-    update_cache: yes
-
 - name: Install standalone packages
   become: yes
   package:
