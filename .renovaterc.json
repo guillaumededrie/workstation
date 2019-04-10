@@ -1,6 +1,5 @@
 {
   "assignees": ["guillaumededrie"],
-  "compatibility": { "python": "3.7" },
-  "extends": [ "config:base" ],
-  "pipenv": { "enabled": true }
+  "extends": ["config:base"],
+  "pipenv": {"enabled": true}
 }
