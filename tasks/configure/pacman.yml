@@ -1,0 +1,30 @@
+---
+
+- name: Install pacman-contrib
+  become: yes
+  package:
+    name: pacman-contrib
+    state: present
+
+  # See: https://wiki.archlinux.org/index.php/mirrors#Fetching_and_ranking_a_live_mirror_list
+- name: Download mirrorlist and run rankmirrors # noqa 301
+  register: rankmirrors
+  shell: >
+    set -eo pipefail
+    ; curl -s "https://www.archlinux.org/mirrorlist/?country=FR&protocol=https&use_mirror_status=on"
+    | sed -e 's/^#Server/Server/' -e '/^#/d'
+    | rankmirrors -n 5 -
+  args:
+    warn: False # we don't want to use `get_url` instead of inline `curl`
+
+- name: Copy rankmirrors results
+  become: yes
+  copy:
+    dest: /etc/pacman.d/mirrorlist
+    content: "{{ rankmirrors.stdout }}"
+    backup: yes
+
+- name: Update Pacman Cache
+  become: yes
+  pacman:
+    update_cache: yes
