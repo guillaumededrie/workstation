@@ -4,8 +4,8 @@ All I need for my workstation.
 
 ## Todolist
 
-[ ] Explain, command by command, how I install my workstation
-[ ] Take a look at [Security - ArchWiki](https://wiki.archlinux.org/index.php/Security)
+* [ ] Explain, command by command, how I install my workstation
+* [ ] Take a look at [Security - ArchWiki](https://wiki.archlinux.org/index.php/Security)
 
 
 ## Installation
