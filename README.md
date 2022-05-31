@@ -2,6 +2,7 @@
 
 All I need for my workstation.
 
+
 ## Todolist
 
 * [ ] Explain, command by command, how I install my workstation
@@ -19,9 +20,9 @@ TO BE COMPLETED.
 
 ```bash
   # Install tools for Ansible installation
-$ sudo pacman -S python python-pipenv
-$ pipenv install
-$ ansible-playbook -K setup.py
+$ sudo pacman -S python-pipenv
+$ pipenv install --dev
+$ pipenv run ansible-playbook -K setup.py
 ```
 
 
