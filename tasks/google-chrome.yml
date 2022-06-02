@@ -1,0 +1,21 @@
+---
+
+- name: Google Chrome | Install
+  kewlfft.aur.aur:
+    use: paru
+    name:
+      - google-chrome
+
+- name: Google Chrome | Configure default extensions
+  become: true
+  ansible.builtin.copy:
+    content: "{ \"external_update_url\": \"https://clients2.google.com/service/update2/crx\" }"
+    dest: "/opt/google/chrome/default_apps/{{ item }}.json"
+    mode: 0644
+  loop:
+    - gcbommkclmclpchllfjekcdonpmejbdp # HTTPS Everywhere
+    - pkehgijcmpdhfbdbbnkijodmdjhbjlgp # Privacy Badger
+    - cjpalhdlnbpafiamejdnhcphjbkeiagm # uBlock Origin
+    - mfidmkgnfgnkihnjeklbekckimkipmoe # Flashcontrol
+    - eiadekoaikejlgdbkbdfeijglgfdalml # WebRTC Leak Prevent
+    - dbepggeogbaibhgnhhndojpepiihcmeb # Vimium

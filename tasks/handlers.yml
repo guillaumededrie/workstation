@@ -1,0 +1,20 @@
+---
+
+- name: Common | Restart is required
+  ansible.builtin.pause:
+    prompt: "A System reboot is required"
+
+- name: Nftables | Restart service
+  become: true
+  ansible.builtin.service:
+    name: nftables
+    state: restarted
+
+- name: XDG user directories | Update
+  ansible.builtin.command: xdg-user-dirs-update
+
+- name: Pcsc | Restart service
+  become: true
+  ansible.builtin.service:
+    name: pcscd
+    state: restarted

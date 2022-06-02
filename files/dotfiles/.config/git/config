@@ -19,13 +19,13 @@
     untracked = red bold
 
 [commit]
-    template = ~/.config/git/git_commit_msg.txt
+    template = git_commit_msg.txt
     gpgsign = true
 
 [core]
     editor = vim
     whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
-    excludesfile = ~/.config/git/gitignore
+    excludesfile = gitignore
 
 [diff]
     tool = vimdiff
@@ -37,9 +37,6 @@
     name = Guillaume Dedrie
     email = guillaume.dedrie@gmail.com
     signingkey = 0x1E85134124CF4A6F
-
-[includeIf "gitdir:~/work/"]
-    path = ~/work/.gitconfig
 
 [filter "lfs"]
     required = true

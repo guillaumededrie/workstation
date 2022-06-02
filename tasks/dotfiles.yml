@@ -1,0 +1,57 @@
+---
+
+- name: Dotfiles | VimPlug | Install preparation
+  block:
+    - name: VimPlug | Create autoload directory
+      ansible.builtin.file:
+        path: "{{ ansible_user_dir }}/.vim/autoload"
+        state: directory
+        recurse: true
+
+    - name: Dotfiles | VimPlug | Installation
+      ansible.builtin.get_url:
+        url: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        dest: "{{ ansible_user_dir }}/.vim/autoload/plug.vim"
+        mode: 0640
+  tags: ['dotfiles:vimplug']
+
+- name: Dotfiles | Register dotfiles directory path
+  ansible.builtin.set_fact:
+    dotfiles_dir: files/dotfiles
+  tags: ['always']
+
+- name: Dotfiles | List dotfiles
+  ansible.builtin.debug:
+    msg: "{{ item }}"
+  with_filetree: "{{ dotfiles_dir }}"
+  tags: ['never', 'debug']
+
+- name: Dotfiles | Create directories before linking
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/{{ item.path }}"
+    state: directory
+    recurse: true
+  with_filetree: "{{ dotfiles_dir }}"
+  when:
+    - item.state == 'directory'
+
+- name: Dotfiles | Link files
+  ansible.builtin.file:
+    src: "{{ item.src }}"
+    dest: "{{ ansible_user_dir }}/{{ item.path }}"
+    state: link
+    force: true
+  with_filetree: "{{ dotfiles_dir }}"
+  when:
+    - item.state == 'file'
+
+- name: Dotfiles | Restrict permissions
+  ansible.builtin.file:
+    path: "{{ item }}"
+    mode: 0700
+  loop:
+    - "{{ lookup('env', 'GNUPGHOME') | default(xdg_data_home + '/gnupg', True) }}"
+
+- name: Dotfiles | Vim install process
+  ansible.builtin.debug:
+    msg: "Don't forget to run `vim +PlugInstall +PlugUpdate`"

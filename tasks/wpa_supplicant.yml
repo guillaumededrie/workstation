@@ -1,0 +1,16 @@
+---
+
+- name: wpa_supplicant | Install necessary packages
+  become: true
+  ansible.builtin.package:
+    name:
+      - dhcpcd
+      - wpa_supplicant
+    state: present
+
+- name: Link wpa_supplicant hook for Dhcpcd
+  become: true
+  ansible.builtin.file:
+    src: /usr/share/dhcpcd/hooks/10-wpa_supplicant
+    dest: /usr/lib/dhcpcd/dhcpcd-hooks/10-wpa_supplicant
+    state: link

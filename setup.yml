@@ -1,31 +1,56 @@
----
+#!/usr/bin/env -S ansible-playbook --connection local
 
 - hosts: localhost
-  connection: local
+  handlers:
+    - name: Handlers | Import tasks
+      ansible.builtin.import_tasks: tasks/handlers.yml
+
   tasks:
-    - tags: ['pacman']
-      import_tasks: tasks/configure/pacman.yml
+    - name: Debug | Display Ansible Gathered facts
+      ansible.builtin.debug:
+        var: ansible_facts
+      tags: ['never', 'debug']
 
-    - tags: ['packages']
-      import_tasks: tasks/install/packages.yml
+    - name: XDG user directories | Import tasks
+      ansible.builtin.import_tasks: tasks/xdg_user_directories.yml
+      tags: ['xdg_user_directories']
 
-    - tags: ['dotfiles']
-      import_tasks: tasks/install/dotfiles.yml
+    - name: Nftables | Import tasks
+      ansible.builtin.import_tasks: tasks/nftables.yml
+      tags: ['nftables']
 
-    - tags: ['aur']
-      import_tasks: tasks/install/aur.yml
+    - name: wpa_supplicant | Import tasks
+      ansible.builtin.import_tasks: tasks/wpa_supplicant.yml
+      tags: ['wpa_supplicant']
 
-    - tags: ['desktop']
-      import_tasks: tasks/configure/desktop.yml
+    - name: Sound | Import tasks
+      ansible.builtin.import_tasks: tasks/sound.yml
+      tags: ['sound']
 
-    - tags: ['system']
-      import_tasks: tasks/configure/system.yml
+    - name: Dotfiles | Import tasks
+      ansible.builtin.import_tasks: tasks/dotfiles.yml
+      tags: ['dotfiles']
 
-    - tags: ['network', 'wifi']
-      import_tasks: tasks/configure/wifi.yml
+    - name: Fonts | Import tasks
+      ansible.builtin.import_tasks: tasks/fonts.yml
+      tags: ['fonts']
 
-    - tags: ['firewall']
-      import_tasks: tasks/configure/firewall.yml
+    - name: Packages | Import tasks
+      ansible.builtin.import_tasks: tasks/packages.yml
+      tags: ['packages']
 
-    - tags: ['chrome']
-      import_tasks: tasks/configure/chrome.yml
+    - name: GnuPG | Import tasks
+      ansible.builtin.import_tasks: tasks/gnupg.yml
+      tags: ['gnupg']
+
+    - name: Google Chrome | Import tasks
+      ansible.builtin.import_tasks: tasks/google-chrome.yml
+      tags: ['google-chrome']
+
+    - name: Wireshark | Import tasks
+      ansible.builtin.import_tasks: tasks/wireshark.yml
+      tags: ['wireshark']
+
+    - name: YubiKey | Import tasks
+      ansible.builtin.import_tasks: tasks/yubikey.yml
+      tags: ['yubikey']

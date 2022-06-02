@@ -1,0 +1,15 @@
+---
+
+- name: Fonts | Install packages
+  become: true
+  ansible.builtin.package:
+    name:
+      - terminus-font
+      - ttf-bitstream-vera
+      - ttf-dejavu
+      - ttf-droid
+      - ttf-freefont
+      - ttf-inconsolata
+      - ttf-liberation
+      - ttf-linux-libertine
+      - noto-fonts-emoji

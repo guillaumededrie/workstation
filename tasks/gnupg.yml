@@ -1,0 +1,18 @@
+---
+
+- name: GnuPG | Install requirements
+  become: true
+  ansible.builtin.package:
+    name:
+      - ccid
+      - gnupg
+      - pcsclite
+    state: present
+  notify:
+    - Pcscd | Restart service
+
+- name: Pcsc | Enable pcscd service
+  become: true
+  ansible.builtin.service:
+    name: pcscd
+    enabled: true

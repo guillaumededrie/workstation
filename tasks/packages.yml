@@ -1,0 +1,84 @@
+---
+
+- name: Packages | Update cache
+  become: true
+  community.general.pacman:
+    update_cache: true
+
+- name: Packages | Install
+  become: true
+  ansible.builtin.package:
+    name:
+        # Dev common
+      - base-devel
+      - code
+      - diff-so-fancy
+      - git
+      - git-lfs
+      - the_silver_searcher
+      - tmux
+
+        # Iphone
+      - libimobiledevice # USB Tethering
+      - usbmuxd # USB Tethering
+
+        # Media
+      - gimp
+      - imagemagick
+      - vlc
+
+        # Monitoring
+      - glances
+      - htop
+
+        # Network
+      - curl
+      - nmap
+      - openbsd-netcat
+      - openssh
+      - socat
+      - tcpdump
+      - whois
+
+        # Office
+      - arandr
+      - hunspell
+      - hunspell-en_us
+      - hunspell-fr
+      - keepassxc
+      - libfido2
+      - libreoffice-fresh
+      - pandoc
+      - thunderbird
+      - tree
+      - unzip
+      - zip
+
+        # Startup
+      - xorg-xinit
+      - xorg-xrdb
+      - xorg-xmodmap
+
+        # Shell env
+      - alacritty
+      - fish
+      - vim
+
+        # Window manager
+      - dmenu
+      - i3-wm
+      - i3status
+    state: present
+
+- name: Packages | AUR | Install paru
+  kewlfft.aur.aur:
+    name: paru
+    state: present
+    use: makepkg
+
+- name: Packages | AUR | Install
+  kewlfft.aur.aur:
+    use: paru
+    name:
+      - insync
+      - spotify

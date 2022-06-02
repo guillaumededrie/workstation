@@ -1,0 +1,13 @@
+---
+
+- name: YubiKey | Install requirements
+  become: true
+  ansible.builtin.package:
+    name:
+      - libfido2
+      - pam-u2f
+      - yubico-pam
+      - yubikey-manager
+    state: present
+  notify:
+    - Pcsc | Restart service

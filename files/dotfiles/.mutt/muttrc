@@ -1,9 +1,0 @@
-source "~/.mutt/global"
-source "~/.mutt/alias"
-source "~/.mutt/view"
-source "~/.mutt/sidebar"
-source "~/.mutt/keys"
-source "~/.mutt/themes/vombatidae-mutt/vombatidae.mutt"
-source "~/.mutt/gpg.rc"
-
-# Accounts, see https://wiki.archlinux.org/index.php/Mutt#Multiple_accounts

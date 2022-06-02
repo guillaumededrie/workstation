@@ -1,0 +1,22 @@
+# {{ ansible_managed }}
+flush ruleset
+
+table inet main {
+    chain INPUT {
+        type filter hook input priority filter; policy drop
+        ct state { established, related } accept comment "Accept traffic originated from us"
+        ct state { invalid } drop comment "Drop invalid connections"
+        iifname "lo" accept comment "Accept any localhost traffic"
+    }
+
+    chain FORWARD {
+        type filter hook forward priority security; policy drop
+    }
+
+    chain OUTPUT {
+        type filter hook output priority filter; policy drop
+        tcp dport { 22, 53, 80, 443, 465, 993 } accept comment "Authorize legitimate traffic (TCP)"
+        udp dport { 53, 67, 443 } accept comment "Authorize legitimate traffic (UDP)"
+        icmp type { echo-request } accept
+    }
+}
