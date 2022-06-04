@@ -40,6 +40,23 @@ first: `gpg --recv-keys 0x1e85134124cf4a6f`
 
 Then, check the status with `gpg --card-status`
 
+To authenticate with the Yubikey:
+```bash
+$ ykman fido access change-pin # To add a pin
+$ pamu2fcfg --pin-verification > ~/.config/Yubico/u2f_keys
+```
+
+Then modify `/etc/pam.d/system-local-login`:
+```diff
+  #%PAM-1.0
+
++ auth      sufficient  pam_u2f.so  nouserok cue
+  auth      include   system-login
+  account   include   system-login
+  password  include   system-login
+  session   include   system-login
+```
+
 
 ## Resources
 
