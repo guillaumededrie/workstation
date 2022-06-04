@@ -25,6 +25,7 @@
         # Media
       - gimp
       - imagemagick
+      - usbutils
       - vlc
 
         # Monitoring
