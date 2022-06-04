@@ -3,8 +3,8 @@ let g:polyglot_disabled = ['latex']
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'NLKNguyen/papercolor-theme'
 Plug 'airblade/vim-gitgutter', { }
-Plug 'altercation/vim-colors-solarized', {  }
 Plug 'pearofducks/ansible-vim', { 'for': ['ansible'] }
 Plug 'ctrlpvim/ctrlp.vim', {  }
 Plug 'ekalinin/Dockerfile.vim', { }
@@ -25,8 +25,8 @@ Plug 'tpope/vim-sensible', {  }
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround', {  }
 "Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
-Plug 'vim-airline/vim-airline', {  }
-Plug 'vim-airline/vim-airline-themes', {  }
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-syntastic/syntastic', {  }
 Plug 'w0rp/ale', { }
 
@@ -36,15 +36,14 @@ call plug#end()
 set nocompatible
 syntax enable
 
-" Airline plugin
+" Papercolor theme
 set background=dark
-let g:airline_theme = 'solarized'
+colorscheme PaperColor
+
+" Vim Airline configuration (statusline)
+let g:airline_theme='papercolor'
 let g:airline_powerline_fonts = 1
-let g:solarized_termcolors=256
-let g:solarized_termtrans = 1
-let g:solarized_contrast = 'normal'
-let g:solarized_visibility = 'normal'
-color solarized
+
 
 set showmode                    " Display the current mode
 
