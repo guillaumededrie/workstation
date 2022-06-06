@@ -82,4 +82,5 @@
     use: paru
     name:
       - insync
+      - powerline-fonts-git
       - spotify

@@ -37,6 +37,7 @@ set nocompatible
 syntax enable
 
 " Papercolor theme
+set t_Co=256
 set background=dark
 colorscheme PaperColor
 
