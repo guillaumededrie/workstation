@@ -40,22 +40,53 @@ first: `gpg --recv-keys 0x1e85134124cf4a6f`
 
 Then, check the status with `gpg --card-status`
 
-To authenticate with the Yubikey:
+
+#### PAM Support with U2F
+
+To authenticate with the Yubikey (with PIN and without touching it)
+
 ```bash
 $ ykman fido access change-pin # To add a pin
-$ pamu2fcfg --pin-verification > ~/.config/Yubico/u2f_keys
+$ export $YUBICO_CONF_DIR="${XDG_CONFIG_HOME:-$HOME/.config}"
+$ mkdir "$YUBICO_CONF_DIR/Yubico/"
+$ pamu2fcfg --pin-verification --no-user-presence > "$YUBICO_CONF_DIR/u2f_keys"
 ```
 
-Then modify `/etc/pam.d/system-local-login`:
+Then modify `/etc/pam.d/system-auth`:
 ```diff
   #%PAM-1.0
 
-+ auth      sufficient  pam_u2f.so  nouserok cue
-  auth      include   system-login
-  account   include   system-login
-  password  include   system-login
-  session   include   system-login
+  auth       required                    pam_faillock.so      preauth
+  # Optionally use requisite above if you do not want to prompt for the password
+  # on locked accounts.
+  -auth      [success=2 default=ignore]  pam_systemd_home.so
++ auth sufficient pam_u2f.so nouserok userpresence=0
+  auth       [success=1 default=bad]     pam_unix.so          try_first_pass nullok
+  auth       [default=die]               pam_faillock.so      authfail
+  auth       optional                    pam_permit.so
+  auth       required                    pam_env.so
+  auth       required                    pam_faillock.so      authsucc
+  # If you drop the above call to pam_faillock.so the lock will be done also
+  # on non-consecutive authentication failures.
+
+  -account   [success=1 default=ignore]  pam_systemd_home.so
+  account    required                    pam_unix.so
+  account    optional                    pam_permit.so
+  account    required                    pam_time.so
+
+  -password  [success=1 default=ignore]  pam_systemd_home.so
+  password   required                    pam_unix.so          try_first_pass nullok shadow sha512
+  password   optional                    pam_permit.so
+
+  -session   optional                    pam_systemd_home.so
+  session    required                    pam_limits.so
+  session    required                    pam_unix.so
+  session    optional                    pam_permit.so
 ```
+
+See:
+  - [pam-u2f](https://developers.yubico.com/pam-u2f/)
+  - [Linux user authentication with PAM](https://wiki.archlinux.org/title/YubiKey#Linux_user_authentication_with_PAM)
 
 
 ## Resources
