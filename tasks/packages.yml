@@ -10,6 +10,7 @@
   ansible.builtin.package:
     name:
         # Dev common
+      - bat
       - base-devel
       - code
       - diff-so-fancy
