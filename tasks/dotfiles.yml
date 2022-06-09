@@ -23,7 +23,7 @@
 - name: Dotfiles | List dotfiles
   ansible.builtin.debug:
     msg: "{{ item }}"
-  with_filetree: "{{ dotfiles_dir }}"
+  with_community.general.filetree: "{{ dotfiles_dir }}"
   tags: ['never', 'debug']
 
 - name: Dotfiles | Create directories before linking
@@ -31,7 +31,7 @@
     path: "{{ ansible_user_dir }}/{{ item.path }}"
     state: directory
     recurse: true
-  with_filetree: "{{ dotfiles_dir }}"
+  with_community.general.filetree: "{{ dotfiles_dir }}"
   when:
     - item.state == 'directory'
 
@@ -41,7 +41,7 @@
     dest: "{{ ansible_user_dir }}/{{ item.path }}"
     state: link
     force: true
-  with_filetree: "{{ dotfiles_dir }}"
+  with_community.general.filetree: "{{ dotfiles_dir }}"
   when:
     - item.state == 'file'
 

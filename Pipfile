@@ -4,7 +4,7 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-ansible-lint = "==6.1.0"
+ansible-lint = "==6.3.0"
 
 [packages]
 ansible = "==5.8.0"
