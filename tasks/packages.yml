@@ -16,6 +16,8 @@
       - diff-so-fancy
       - git
       - git-lfs
+      - powerline
+      - powerline-vim
       - the_silver_searcher
       - tmux
 

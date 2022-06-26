@@ -1,4 +1,11 @@
 ---
 
+font:
+  normal:
+    family: Fira Mono for Powerline
+    style: Regular
+  bold:
+    style: Bold
+
 shell:
   program: /usr/bin/fish
