@@ -1,4 +1,4 @@
-# Workstation [![Build Status](https://travis-ci.org/guillaumededrie/workstation.svg?branch=master)](https://travis-ci.org/guillaumededrie/workstation)
+# Workstation ![Linters](https://github.com/guillaumededrie/workstation/actions/workflows/linters/badge.svg)
 
 All I need for my workstation.
 
