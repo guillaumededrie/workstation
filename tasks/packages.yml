@@ -53,6 +53,9 @@
       - libfido2
       - libreoffice-fresh
       - pandoc
+      - texlive-core
+      - texlive-fontsextra
+      - texlive-latexextra
       - thunderbird
       - tree
       - unzip
