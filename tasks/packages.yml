@@ -16,6 +16,7 @@
       - diff-so-fancy
       - git
       - git-lfs
+      - inotify-tools
       - powerline
       - powerline-vim
       - the_silver_searcher
