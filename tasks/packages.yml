@@ -23,7 +23,6 @@
       - tmux
 
         # Iphone
-      - libimobiledevice # USB Tethering
       - usbmuxd # USB Tethering
 
         # Media
