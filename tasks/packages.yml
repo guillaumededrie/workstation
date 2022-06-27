@@ -37,6 +37,7 @@
 
         # Network
       - curl
+      - dnsutils
       - nmap
       - openbsd-netcat
       - openssh
