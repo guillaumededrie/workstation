@@ -15,6 +15,10 @@ All I need for my workstation.
 
 TO BE COMPLETED.
 
+Add your user to the following [User groups](https://wiki.archlinux.org/title/users_and_groups#User_groups):
+  - `log`
+  - `wheel`
+
 
 ### Install and configure environment
 
