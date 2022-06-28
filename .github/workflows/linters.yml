@@ -33,3 +33,6 @@ jobs:
 
       - name: Run Linter
         run: pipenv run ansible-lint setup.yml -vv
+
+      - name: Run Ansible Syntax Check
+        run: pipenv run ./setup.yml --syntax-check -vvvv
