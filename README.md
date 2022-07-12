@@ -1,4 +1,4 @@
-# Workstation ![Linters](https://github.com/guillaumededrie/workstation/actions/workflows/linters/badge.svg)
+# Workstation ![Linters](https://github.com/guillaumededrie/workstation/actions/workflows/linters.yml/badge.svg)
 
 All I need for my workstation.
 
