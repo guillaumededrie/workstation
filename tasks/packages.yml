@@ -66,6 +66,9 @@
       - unzip
       - zip
 
+        # Package management
+      - reflector
+
         # Startup
       - xorg-xinit
       - xorg-xrdb
