@@ -22,6 +22,9 @@
       - the_silver_searcher
       - tmux
 
+        # Hardware
+      - fwupd
+
         # Iphone
       - usbmuxd # USB Tethering
 
