@@ -67,6 +67,7 @@
       - zip
 
         # Package management
+      - pacman-contrib
       - reflector
 
         # Startup
