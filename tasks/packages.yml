@@ -57,6 +57,7 @@
       - texlive-core
       - texlive-fontsextra
       - texlive-latexextra
+      - texlive-pictures
       - thunderbird
       - tree
       - unzip
