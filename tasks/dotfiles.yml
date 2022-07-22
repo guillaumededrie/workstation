@@ -54,4 +54,4 @@
 
 - name: Dotfiles | Vim install process
   ansible.builtin.debug:
-    msg: "Don't forget to run `vim +PlugInstall +PlugUpdate`"
+    msg: "Don't forget to run `vim +PlugInstall`"

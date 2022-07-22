@@ -10,15 +10,23 @@
   ansible.builtin.package:
     name:
         # Dev common
-      - bat
       - base-devel
+      - bat
+      - clang
+      - cmake
       - code
       - diff-so-fancy
       - git
       - git-lfs
+      - go
       - inotify-tools
+      - jdk-openjdk
+      - mono
+      - nodejs
+      - npm
       - powerline
       - powerline-vim
+      - rust
       - the_silver_searcher
       - tmux
 
