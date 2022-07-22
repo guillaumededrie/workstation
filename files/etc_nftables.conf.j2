@@ -28,6 +28,7 @@ table inet main {
             tcp . 443 : accept,
             udp . 443 : accept,
             tcp . 465 : accept,
+            tcp . 587 : accept,
             tcp . 993 : accept,
         }
         icmp type { echo-request } accept
