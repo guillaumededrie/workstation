@@ -15,6 +15,7 @@ table inet main {
 
     chain OUTPUT {
         type filter hook output priority filter; policy drop
+        oifname "lo" accept
         tcp dport { 22, 53, 80, 443, 465, 993 } accept comment "Authorize legitimate traffic (TCP)"
         udp dport { 53, 67, 443 } accept comment "Authorize legitimate traffic (UDP)"
         icmp type { echo-request } accept
