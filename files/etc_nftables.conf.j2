@@ -1,23 +1,35 @@
 # {{ ansible_managed }}
+# Inpired by:
+#   - https://wiki.nftables.org/wiki-nftables/index.php/Simple_ruleset_for_a_server
 flush ruleset
 
 table inet main {
-    chain INPUT {
+    chain input {
         type filter hook input priority filter; policy drop
-        ct state { established, related } accept comment "Accept traffic originated from us"
-        ct state { invalid } drop comment "Drop invalid connections"
+        ct state vmap { established : accept, related : accept, invalid : drop }
         iifname "lo" accept comment "Accept any localhost traffic"
+
+        # Uncomment to enable logging of denied inbound traffic
+        # log prefix "[nftables] Inbound Denied: " counter drop
     }
 
-    chain FORWARD {
+    chain forward {
         type filter hook forward priority security; policy drop
     }
 
-    chain OUTPUT {
+    chain output {
         type filter hook output priority filter; policy drop
         oifname "lo" accept
-        tcp dport { 22, 53, 80, 443, 465, 993 } accept comment "Authorize legitimate traffic (TCP)"
-        udp dport { 53, 67, 443 } accept comment "Authorize legitimate traffic (UDP)"
+        ip protocol . th dport vmap {
+            tcp . 22 : accept,
+            tcp . 53 : accept,
+            udp . 53 : accept,
+            tcp . 80 : accept,
+            tcp . 443 : accept,
+            udp . 443 : accept,
+            tcp . 465 : accept,
+            tcp . 993 : accept,
+        }
         icmp type { echo-request } accept
     }
 }

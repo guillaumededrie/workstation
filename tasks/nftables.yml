@@ -14,7 +14,7 @@
     owner: root
     group: root
     mode: 0600
-    validate: /usr/bin/nft -c -f %s
+    validate: /usr/bin/nft --check --file %s
   notify:
     - Nftables | Restart service
 
