@@ -15,6 +15,10 @@
       ansible.builtin.import_tasks: tasks/xdg_user_directories.yml
       tags: ['xdg_user_directories']
 
+    - name: Facts | Compute Ansible Facts
+      ansible.builtin.import_tasks: tasks/compute_ansible_facts.yml
+      tags: ['compute_ansible_facts']
+
     - name: Nftables | Import tasks
       ansible.builtin.import_tasks: tasks/nftables.yml
       tags: ['nftables']

@@ -11,16 +11,3 @@
   ansible.builtin.package:
     name: xdg-user-dirs
     state: present
-
-- name: XDG user directories | Lookup for XDG_CONFIG_HOME
-  ansible.builtin.set_fact:
-    xdg_config_home: "{{ lookup('env', 'XDG_CONFIG_HOME') | default(ansible_user_dir + '/.config', True) }}"
-    xdg_data_home: "{{ lookup('env', 'XDG_DATA_HOME') | default(ansible_user_dir + '/.local/share', True) }}"
-  tags: ['always']
-
-- name: XDG user directories | Print XDG_CONFIG_HOME
-  ansible.builtin.debug:
-    msg:
-      - "XDG_CONFIG_HOME: {{ xdg_config_home }}"
-      - "XDG_DATA_HOME: {{ xdg_data_home }}"
-  tags: ['never', 'debug']
