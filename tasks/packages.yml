@@ -91,7 +91,7 @@
         # Window manager
       - dmenu
       - i3-wm
-      - i3status
+      - polybar
     state: present
 
 - name: Packages | AUR | Install paru

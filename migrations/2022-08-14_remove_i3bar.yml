@@ -1,0 +1,22 @@
+#!/usr/bin/env -S ansible-playbook --connection local
+
+- hosts: localhost
+  handlers:
+    - name: Handlers | Import tasks
+      ansible.builtin.import_tasks: ../tasks/handlers.yml
+
+  tasks:
+    - name: XDG user directories | Import tasks
+      ansible.builtin.import_tasks: ../tasks/compute_ansible_facts.yml
+      tags: ['xdg_user_directories']
+
+    - name: i3status | Remove package
+      become: true
+      ansible.builtin.package:
+        name: i3status
+        state: absent
+
+    - name: i3status | Remove config files
+      ansible.builtin.file:
+        path: "{{ xdg_config_home }}/i3status"
+        state: absent
