@@ -4,6 +4,7 @@
   become: true
   ansible.builtin.package:
     name:
+      - nodejs-material-design-icons
       - noto-fonts-emoji
       - terminus-font
       - ttf-bitstream-vera
