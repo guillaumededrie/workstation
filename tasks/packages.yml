@@ -92,6 +92,7 @@
       - vim
 
         # Window manager
+      - autorandr
       - dmenu
       - i3-wm
       - polybar
