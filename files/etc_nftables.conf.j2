@@ -4,10 +4,19 @@
 flush ruleset
 
 table inet main {
+    set LANv4 {
+        type ipv4_addr
+        flags interval
+        counter
+        elements = { 10.0.0.0/8, 169.254.0.0/16, 172.16.0.0/12, 192.168.0.0/16 }
+    }
+
     chain input {
         type filter hook input priority filter; policy drop
         ct state vmap { established : accept, related : accept, invalid : drop }
         iifname "lo" accept comment "Accept any localhost traffic"
+
+        ip saddr @LANv4 ip daddr 224.0.0.251 udp dport 5353 counter accept comment "Accept mDNS on local networks"
 
         # Uncomment to enable logging of denied inbound traffic
         # log prefix "[nftables] Inbound Denied: " counter drop
@@ -20,6 +29,9 @@ table inet main {
     chain output {
         type filter hook output priority filter; policy drop
         oifname "lo" accept
+
+        ip daddr @LANv4 accept comment "Accept all on local networks"
+
         ip protocol . th dport vmap {
             tcp . 22 : accept,
             tcp . 53 : accept,
