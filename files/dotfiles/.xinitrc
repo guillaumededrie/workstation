@@ -34,4 +34,5 @@ fi
 
 eval $(ssh-agent -s)
 setxkbmap fr bepo
+autorandr --change
 exec i3
