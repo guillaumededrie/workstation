@@ -34,6 +34,7 @@
 
         # Hardware
       - fwupd
+      - ntfs3
 
         # Iphone
       - usbmuxd # USB Tethering
@@ -51,11 +52,13 @@
         # Network
       - curl
       - dnsutils
+      - mtr
       - nmap
       - openbsd-netcat
       - openssh
       - socat
       - tcpdump
+      - wget
       - whois
 
         # Office
