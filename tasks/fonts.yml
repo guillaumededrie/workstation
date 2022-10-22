@@ -4,10 +4,17 @@
   become: true
   ansible.builtin.package:
     name:
+        # See: https://wiki.archlinux.org/title/LibreOffice#Fonts
+      - adobe-source-code-pro-fonts
+      - adobe-source-sans-fonts
+      - adobe-source-serif-fonts
       - nodejs-material-design-icons
+      - noto-fonts
       - noto-fonts-emoji
       - terminus-font
       - ttf-bitstream-vera
+      - ttf-caladea
+      - ttf-carlito
       - ttf-dejavu
       - ttf-droid
       - ttf-font-awesome
@@ -15,3 +22,4 @@
       - ttf-inconsolata
       - ttf-liberation
       - ttf-linux-libertine
+      - ttf-linux-libertine-g
