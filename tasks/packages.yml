@@ -29,6 +29,7 @@
       - powerline
       - powerline-vim
       - rust
+      - starship
       - the_silver_searcher
       - tmux
 
