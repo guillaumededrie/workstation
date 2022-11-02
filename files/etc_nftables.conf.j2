@@ -1,9 +1,12 @@
+#!/usr/bin/env -S nft --file
 # {{ ansible_managed }}
 # Inpired by:
 #   - https://wiki.nftables.org/wiki-nftables/index.php/Simple_ruleset_for_a_server
+#   - https://doc.huc.fr.eu.org/fr/sec/firewall/linux-firewall-icmpv6/
+
 flush ruleset
 
-table inet main {
+table inet filter {
     set LANv4 {
         type ipv4_addr
         flags interval
@@ -13,10 +16,34 @@ table inet main {
 
     chain input {
         type filter hook input priority filter; policy drop
-        ct state vmap { established : accept, related : accept, invalid : drop }
-        iifname "lo" accept comment "Accept any localhost traffic"
+        ct state invalid counter drop \
+            comment "early drop of invalid packets"
+        ct state {established, related} counter accept \
+            comment "accept all connections related to connections made by us"
 
-        ip saddr @LANv4 ip daddr 224.0.0.251 udp dport 5353 counter accept comment "Accept mDNS on local networks"
+        iifname "lo" accept \
+            comment "accept loopback"
+
+        udp sport 123 udp dport 123 counter accept \
+            comment "accept NTP"
+
+
+        # IPv4
+        iif != lo ip daddr 127.0.0.1/8 counter drop \
+            comment "drop connections to loopback not coming from loopback"
+
+        ip saddr @LANv4 ip daddr 224.0.0.251 udp dport 5353 counter accept \
+            comment "Accept mDNS on local networks"
+
+
+        # IPv6
+        iif != lo ip6 daddr ::1/128 counter drop \
+            comment "drop connections to loopback not coming from loopback"
+
+	ip6 nexthdr icmpv6 counter accept comment "accept all ICMP types"
+
+        ip6 saddr fe80::/10 udp sport 547 udp dport 546 accept \
+            comment "Accept DHCPv6 replies from IPv6 link-local addresses"
 
         # Uncomment to enable logging of denied inbound traffic
         # log prefix "[nftables] Inbound Denied: " counter drop
@@ -24,13 +51,17 @@ table inet main {
 
     chain forward {
         type filter hook forward priority security; policy drop
+
+        meta mark 42 accept
     }
 
     chain output {
         type filter hook output priority filter; policy drop
         oifname "lo" accept
 
-        ip daddr @LANv4 accept comment "Accept all on local networks"
+        # IPv4
+        ip daddr @LANv4 accept \
+            comment "Accept all on local networks"
 
         ip protocol . th dport vmap {
             tcp . 22 : accept,
@@ -43,6 +74,24 @@ table inet main {
             tcp . 587 : accept,
             tcp . 993 : accept,
         }
-        icmp type { echo-request } accept
+
+        # IPv4
+        ip daddr @LANv4 accept \
+            comment "Accept all on local networks"
+
+        ip protocol icmp counter accept comment "accept all ICMP types"
+
+        udp sport 123 udp dport 123 counter accept \
+            comment "accept NTP"
+
+        # IPv6
+        ip6 nexthdr icmpv6 counter accept comment "accept all ICMP types"
+    }
+}
+
+
+table ip filter {
+    chain DOCKER-USER {
+        meta mark set 42
     }
 }
