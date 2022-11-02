@@ -92,6 +92,45 @@ See:
   - [pam-u2f](https://developers.yubico.com/pam-u2f/)
   - [Linux user authentication with PAM](https://wiki.archlinux.org/title/YubiKey#Linux_user_authentication_with_PAM)
 
+### Update
+
+### Firmwares
+
+```bash
+$ fwupdmgr get-devices
+$ fwupdmgr refresh
+$ fwupdmgr get-updates
+$ fwupdmgr update
+```
+
+Restart if needed!
+
+### System
+
+> :warning: Take a look at https://www.archlinux.org/ for any important
+> information regarding updates. :warning:
+
+```bash
+# Preparation
+$ sudo reflector --country France --age 12 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
+$ sudo pacman -Syy
+  # NOTE: Update `archlinux-keyring` first as new keys can be required by the
+  # full system update.
+$ sudo pacman -S archlinux-keyring
+
+# Update
+$ sudo pacman -Su
+$ paru -Sua
+$ vim +PlugUpgrade +PlugUpdate
+
+# Cleanups
+$ sudo pacdiff
+  # Remove orphan packages.
+$ sudo pacman -Rns $(pacman -Qtdq)
+```
+
+Restart!
+
 
 ## Resources
 
