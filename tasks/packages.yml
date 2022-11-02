@@ -35,7 +35,6 @@
 
         # Hardware
       - fwupd
-      - ntfs3
 
         # Iphone
       - usbmuxd # USB Tethering
