@@ -63,6 +63,7 @@
       - whois
 
         # Office
+      - borgmatic
       - hunspell
       - hunspell-en_us
       - hunspell-fr
