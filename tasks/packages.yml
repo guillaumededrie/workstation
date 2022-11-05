@@ -63,7 +63,6 @@
       - whois
 
         # Office
-      - arandr
       - hunspell
       - hunspell-en_us
       - hunspell-fr
@@ -96,6 +95,7 @@
       - vim
 
         # Window manager
+      - arandr
       - autorandr
       - dmenu
       - i3-wm
