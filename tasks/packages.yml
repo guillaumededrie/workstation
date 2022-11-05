@@ -35,6 +35,7 @@
 
         # Hardware
       - fwupd
+      - lshw
 
         # Iphone
       - usbmuxd # USB Tethering
