@@ -15,7 +15,7 @@
       - clang
       - cmake
       - code
-      - diff-so-fancy
+      - difftastic
       - fd
       - fzf
       - git

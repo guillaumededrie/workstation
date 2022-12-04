@@ -28,6 +28,7 @@
     excludesfile = gitignore
 
 [diff]
+    external = difft
     tool = vimdiff
 
 [difftool]
