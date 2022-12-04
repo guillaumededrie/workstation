@@ -78,6 +78,7 @@
       - thunderbird
       - tree
       - unzip
+      - yt-dlp
       - zip
 
         # Package management
