@@ -12,6 +12,8 @@
         # Dev common
       - base-devel
       - bat
+      - certbot
+      - certbot-dns-ovh
       - clang
       - cmake
       - code
