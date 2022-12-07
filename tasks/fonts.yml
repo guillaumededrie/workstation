@@ -23,4 +23,10 @@
       - ttf-liberation
       - ttf-linux-libertine
       - ttf-linux-libertine-g
-      - ttf-sourcecodepro-nerd
+
+- name: Packages | AUR | Install
+  kewlfft.aur.aur:
+    use: paru
+    name:
+      - nerd-fonts-complete
+      - powerline-fonts-git
