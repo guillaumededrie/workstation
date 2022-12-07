@@ -10,6 +10,7 @@
   ansible.builtin.package:
     name:
         # Dev common
+      - bandit
       - base-devel
       - bat
       - certbot
@@ -17,8 +18,10 @@
       - clang
       - cmake
       - code
+      - ctags
       - difftastic
       - fd
+      - flake8
       - fzf
       - git
       - git-lfs
@@ -26,10 +29,14 @@
       - inotify-tools
       - jdk-openjdk
       - mono
+      - mypy
       - nodejs
       - npm
       - powerline
       - powerline-vim
+      - python-black
+      - python-isort
+      - python-pylint
       - rust
       - starship
       - the_silver_searcher
