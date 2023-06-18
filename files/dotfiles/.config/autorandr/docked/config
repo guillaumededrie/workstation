@@ -2,43 +2,36 @@ output HDMI-A-0
 off
 output DisplayPort-0
 off
-output DisplayPort-2
+output DisplayPort-1
 off
 output eDP
-off
-output DisplayPort-3
-crtc 2
+crtc 0
 mode 1920x1080
 pos 0x0
+primary
 rate 60.00
-x-prop-max_bpc 8
+x-prop-max_bpc 16
 x-prop-non_desktop 0
 x-prop-scaling_mode None
 x-prop-tearfree auto
 x-prop-underscan off
 x-prop-underscan_hborder 0
 x-prop-underscan_vborder 0
-output DisplayPort-4
-crtc 3
+output DVI-I-1-1
+crtc 6
 mode 1920x1080
 pos 1920x0
 rate 60.00
-x-prop-max_bpc 8
 x-prop-non_desktop 0
-x-prop-scaling_mode None
-x-prop-tearfree auto
-x-prop-underscan off
-x-prop-underscan_hborder 0
-x-prop-underscan_vborder 0
-output DisplayPort-1
-crtc 1
+output DVI-I-2-2
+crtc 5
 mode 1920x1080
 pos 3840x0
 rate 60.00
-x-prop-max_bpc 8
 x-prop-non_desktop 0
-x-prop-scaling_mode None
-x-prop-tearfree auto
-x-prop-underscan off
-x-prop-underscan_hborder 0
-x-prop-underscan_vborder 0
+output DVI-I-3-3
+crtc 4
+mode 1920x1080
+pos 5760x0
+rate 60.00
+x-prop-non_desktop 0
