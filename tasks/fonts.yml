@@ -28,5 +28,5 @@
   kewlfft.aur.aur:
     use: paru
     name:
-      - nerd-fonts-complete
+      - nerd-fonts-meta
       - powerline-fonts-git
