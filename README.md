@@ -5,7 +5,6 @@ All I need for my workstation.
 
 ## Todolist
 
-* [ ] Explain, command by command, how I install my workstation
 * [ ] Take a look at [Security - ArchWiki](https://wiki.archlinux.org/index.php/Security)
 
 
@@ -13,18 +12,76 @@ All I need for my workstation.
 
 ### Install Archlinux Base
 
-TO BE COMPLETED.
+Disk partitioning and preparation:
+```shell
+$ pacman -S --needed gdisk
+$ lsblk
+$ export DISK=/dev/sda
+$ sgdisk --zap-all $DISK
+$ sgdisk --clear $DISK
+$ sgdisk --mbrtogpt $DISK
+$ sgdisk --new=1:0:+512M --typecode=1:ef02 $DISK # /boot - BIOS Boot
+$ sgdisk --new=2:0:0 --typecode=2:8309 $DISK # / - Linux LUKS
+$ sgdisk --print $DISK
+$ sgdisk --verify $DISK
 
-Add your user to the following [User groups](https://wiki.archlinux.org/title/users_and_groups#User_groups):
-  - `log`
-  - `wheel`
+$ cryptsetup open --type plain ${DISK}2 container --key-file /dev/random
+$ dd if=/dev/zero of=/dev/mapper/container bs=1M status=progress
+$ cryptsetup close container
+
+$ cryptsetup --verify-passphrase --verbose luksFormat ${DISK}2
+$ cryptsetup open ${DISK}2 root
+
+$ mkfs.ext4 ${DISK}1
+$ mkfs.ext4 /dev/mapper/root
+
+$ mount /dev/mapper/root /mnt
+$ mount --mkdir ${DISK}1 /mnt/boot
+
+$ pacman -S reflector
+$ reflector --verbose --latest 5 --sort rate --country France --protocol https --save /mnt/etc/pacman.d/mirrorlist
+$ pacstrap -K /mnt base linux linux-firmware vim
+$ genfstab -U -p /mnt >> /mnt/etc/fstab
+```
+
+Follow [Installation guide - ArchWiki#Configure the
+system](https://wiki.archlinux.org/title/Installation_guide#Configure_the_system)
+and perform the following changes:
+  * Use `LANG=en_US.UTF-8` as locale.
+  * Add in `/etc/hosts`:
+    ```shell
+    127.0.0.1 localhost <HOSTNAME>
+    ::1       localhost <HOSTNAME>
+    ```
+  * Configure initramfs:
+    1. Remove `fallback` from presets (`/etc/mkinitcpio.d/linux.preset`):
+      Modify `PRESETS=('default' 'fallback')` into `PRESETS=('default')`
+    1. `rm /boot/*-fallback.img`
+    1. Use the followings Hooks (`/etc/mkinitcpio.conf`):
+      `HOOKS=(base systemd autodetect keyboard sd-vconsole modconf block sd-encrypt filesystems fsck)`
+    1. `mkinitcpio -P`
+  * Install the appropriate [Microcode](https://wiki.archlinux.org/title/Microcode)
+  * Install and configure [SystemD-boot](https://wiki.archlinux.org/title/systemd-boot):
+    1. Don't forget to add the [Microcode configuration for Systemd-boot](https://wiki.archlinux.org/title/Microcode#systemd-boot).
+  * Install [NetworkManager](https://wiki.archlinux.org/title/NetworkManager): `pacman -S --needed networkmanager`
+  * Configure user `me`:
+    ```shell
+    $ useradd -m -d /home/me -s /bin/bash -G adm,log,wheel me
+    $ passwd me
+    $ pacman -S sudo
+    $ (umask 337 && echo "me ALL=(ALL) NOPASSWD:ALL" >/etc/sudoers.d/10-user-me)
+    ```
+  * [Installation Guide - ArchWiki#Reboot](https://wiki.archlinux.org/title/Installation_guide#Reboot)
+  * Debug…
+  * Deactivate `root` authentication:
+    Replace `root:<password_hashed>:…` by `root:!:…` in `/etc/shadow`.
 
 
 ### Install and configure environment
 
 ```bash
   # Install tools for Ansible installation
-$ sudo pacman -S python-pipenv
+$ sudo pacman -S python python-pipenv
 $ pipenv install --dev
 $ pipenv run ansible-galaxy collection install -r ansible-galaxy-requirements.yml
 $ pipenv run ./setup.yml
