@@ -38,6 +38,8 @@
     name = Guillaume Dedrie
     email = guillaume.dedrie@gmail.com
     signingkey = 0x1E85134124CF4A6F
+    # On empty repository, prompt for the user.name, user.email to use
+    useConfigOnly = true
 
 [filter "lfs"]
     required = true
