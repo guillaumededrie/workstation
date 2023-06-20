@@ -108,7 +108,7 @@ To authenticate with the Yubikey (with PIN and without touching it)
 
 ```bash
 $ ykman fido access change-pin # To add a pin
-$ export $YUBICO_CONF_DIR="${XDG_CONFIG_HOME:-$HOME/.config}"
+$ export YUBICO_CONF_DIR="${XDG_CONFIG_HOME:-$HOME/.config}"
 $ mkdir "$YUBICO_CONF_DIR/Yubico/"
 $ pamu2fcfg --pin-verification --no-user-presence > "$YUBICO_CONF_DIR/u2f_keys"
 ```
