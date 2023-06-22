@@ -24,6 +24,6 @@
     dest: /etc/modprobe.d/alsa-base.conf
     owner: root
     group: root
-    mode: 0640
+    mode: "0640"
   notify:
     - Common | Restart is required
