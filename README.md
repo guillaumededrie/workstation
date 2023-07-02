@@ -20,7 +20,7 @@ $ export DISK=/dev/sda
 $ sgdisk --zap-all $DISK
 $ sgdisk --clear $DISK
 $ sgdisk --mbrtogpt $DISK
-$ sgdisk --new=1:0:+512M --typecode=1:ef02 $DISK # /boot - BIOS Boot
+$ sgdisk --new=1:2048:+512M --typecode=1:ef02 $DISK # /boot - BIOS Boot
 $ sgdisk --new=2:0:0 --typecode=2:8309 $DISK # / - Linux LUKS
 $ sgdisk --print $DISK
 $ sgdisk --verify $DISK
