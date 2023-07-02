@@ -11,6 +11,7 @@
     state: restarted
 
 - name: XDG user directories | Update
+  changed_when: true
   ansible.builtin.command: xdg-user-dirs-update
 
 - name: Pcsc | Restart service

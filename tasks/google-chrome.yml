@@ -11,7 +11,7 @@
   ansible.builtin.copy:
     content: "{ \"external_update_url\": \"https://clients2.google.com/service/update2/crx\" }"
     dest: "/opt/google/chrome/default_apps/{{ item }}.json"
-    mode: 0644
+    mode: "0644"
   loop:
     - gcbommkclmclpchllfjekcdonpmejbdp # HTTPS Everywhere
     - pkehgijcmpdhfbdbbnkijodmdjhbjlgp # Privacy Badger

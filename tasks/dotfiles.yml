@@ -33,7 +33,7 @@
 - name: Dotfiles | Restrict permissions
   ansible.builtin.file:
     path: "{{ item }}"
-    mode: 0700
+    mode: "0700"
   loop:
     - "{{ lookup('env', 'GNUPGHOME') | default(xdg_data_home + '/gnupg', True) }}"
 

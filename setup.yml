@@ -1,6 +1,7 @@
 #!/usr/bin/env -S ansible-playbook --connection local
 
-- hosts: localhost
+- name: Setup workstation
+  hosts: localhost
   handlers:
     - name: Handlers | Import tasks
       ansible.builtin.import_tasks: tasks/handlers.yml
@@ -23,7 +24,7 @@
       ansible.builtin.import_tasks: tasks/nftables.yml
       tags: ['nftables']
 
-    - name: wpa_supplicant | Import tasks
+    - name: WPA Supplicant | Import tasks
       ansible.builtin.import_tasks: tasks/wpa_supplicant.yml
       tags: ['wpa_supplicant']
 

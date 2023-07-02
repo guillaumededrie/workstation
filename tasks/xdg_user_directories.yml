@@ -4,18 +4,20 @@
   ansible.builtin.file:
     path: "{{ ansible_user_dir }}/.config/"
     state: directory
+    mode: "0740"
 
 - name: XDG user directories | Create configuration file
   ansible.builtin.copy:
     src: home_dotconfig_user-dirs.dirs
     dest: "{{ ansible_user_dir }}/.config/user-dirs.dirs"
-    mode: 0640
+    mode: "0640"
 
 - name: XDG user directories | Create directories
   tags: ['debugone']
   ansible.builtin.file:
     path: "{{ item }}"
     state: directory
+    mode: "0740"
   with_items: "{{ lookup('file', ansible_user_dir ~ '/.config/user-dirs.dirs').splitlines() | map('regex_search', '.*=\"(.*)\"', '\\1') | flatten }}"
 
 - name: XDG user directories | Install needed packages
