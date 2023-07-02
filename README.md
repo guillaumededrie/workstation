@@ -192,6 +192,7 @@ $ vim +PlugUpgrade +PlugUpdate
 $ sudo pacdiff
   # Remove orphan packages.
 $ sudo pacman -Rns $(pacman -Qtdq)
+$ sudo journalctl --vacuum-time=8d
 ```
 
 Restart!
