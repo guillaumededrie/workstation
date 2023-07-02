@@ -94,6 +94,14 @@ $ pipenv run ./setup.yml --tags <TAG>
 ```
 
 
+### Screen
+
+In order to use `autorandr` to automatically load appropriate display settings:
+
+1. First, use `arandr` to configure the display
+2. Save the configuration, e.g.: `autorandr --save docked`
+
+
 ### Yubikey
 
 In order for gpg to work with my Yubikey, I need to download my public key
