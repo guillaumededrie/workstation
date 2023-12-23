@@ -1,7 +1,6 @@
 ---
 
 - name: NetworkManager | Installation
-  become: true
   ansible.builtin.package:
     name: "networkmanager"
     state: present
@@ -12,13 +11,11 @@
 - name: NetworkManager | Use iwd as the Wi-Fi backend
   block:
     - name: IWD | Installation
-      become: true
       ansible.builtin.package:
         name: "iwd"
         state: present
 
     - name: IWD | Copy configuration file
-      become: true
       ansible.builtin.copy:
         dest: "/etc/NetworkManager/conf.d/wifi_backend.conf"
         mode: "0644"

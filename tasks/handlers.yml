@@ -5,17 +5,16 @@
     prompt: "A System reboot is required"
 
 - name: Nftables | Restart service
-  become: true
   ansible.builtin.service:
     name: nftables
     state: restarted
 
 - name: XDG user directories | Update
+  become: false
   changed_when: true
   ansible.builtin.command: xdg-user-dirs-update
 
 - name: Pcsc | Restart service
-  become: true
   ansible.builtin.service:
     name: pcscd
     state: restarted

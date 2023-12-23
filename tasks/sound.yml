@@ -1,7 +1,6 @@
 ---
 
 - name: Sound | Installation
-  become: true
   ansible.builtin.package:
     name:
       - alsa-utils
@@ -10,7 +9,6 @@
     state: present
 
 - name: Sound | Add user to group audio
-  become: true
   ansible.builtin.user:
     name: "{{ ansible_user_id }}"
     groups:
@@ -18,7 +16,6 @@
     append: true
 
 - name: Sound | Alsa | Copy configuration
-  become: true
   ansible.builtin.template:
     src: files/etc_modprobe.d_alsa-base.conf.j2
     dest: /etc/modprobe.d/alsa-base.conf

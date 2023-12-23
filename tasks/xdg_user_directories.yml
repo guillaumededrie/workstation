@@ -13,7 +13,6 @@
     mode: "0640"
 
 - name: XDG user directories | Create directories
-  tags: ['debugone']
   ansible.builtin.file:
     path: "{{ item }}"
     state: directory

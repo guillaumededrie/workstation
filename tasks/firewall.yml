@@ -1,13 +1,11 @@
 ---
 
 - name: Nftables | Installation
-  become: true
   ansible.builtin.package:
     name: iptables-nft
     state: present
 
 - name: Nftables | Copy configuration file
-  become: true
   ansible.builtin.template:
     src: files/etc_nftables.conf.j2
     dest: /etc/nftables.conf
@@ -19,7 +17,6 @@
     - Nftables | Restart service
 
 - name: Nftables | Ensure service is activated
-  become: true
   ansible.builtin.service:
     name: nftables
     enabled: true

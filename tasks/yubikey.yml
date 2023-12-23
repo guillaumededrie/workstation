@@ -1,7 +1,6 @@
 ---
 
 - name: YubiKey | Install requirements
-  become: true
   ansible.builtin.package:
     name:
       - libfido2

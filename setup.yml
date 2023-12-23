@@ -5,7 +5,7 @@
   handlers:
     - name: Handlers | Import tasks
       ansible.builtin.import_tasks: tasks/handlers.yml
-
+      become: true
   tasks:
     - name: Debug | Display Ansible Gathered facts
       ansible.builtin.debug:
@@ -22,14 +22,17 @@
 
     - name: Firewall | Import tasks
       ansible.builtin.import_tasks: tasks/firewall.yml
+      become: true
       tags: ['firewall']
 
     - name: Network | Import tasks
       ansible.builtin.import_tasks: tasks/network.yml
+      become: true
       tags: ['network']
 
     - name: Sound | Import tasks
       ansible.builtin.import_tasks: tasks/sound.yml
+      become: true
       tags: ['sound']
 
     - name: Dotfiles | Import tasks
@@ -38,24 +41,30 @@
 
     - name: Fonts | Import tasks
       ansible.builtin.import_tasks: tasks/fonts.yml
+      become: true
       tags: ['fonts']
 
     - name: Packages | Import tasks
       ansible.builtin.import_tasks: tasks/packages.yml
+      become: true
       tags: ['packages']
 
     - name: GnuPG | Import tasks
       ansible.builtin.import_tasks: tasks/gnupg.yml
+      become: true
       tags: ['gnupg']
 
     - name: Google Chrome | Import tasks
       ansible.builtin.import_tasks: tasks/google-chrome.yml
+      become: true
       tags: ['google-chrome']
 
     - name: Wireshark | Import tasks
       ansible.builtin.import_tasks: tasks/wireshark.yml
+      become: true
       tags: ['wireshark']
 
     - name: YubiKey | Import tasks
       ansible.builtin.import_tasks: tasks/yubikey.yml
+      become: true
       tags: ['yubikey']

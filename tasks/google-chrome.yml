@@ -1,13 +1,13 @@
 ---
 
 - name: Google Chrome | Install
+  become: false
   kewlfft.aur.aur:
     use: paru
     name:
       - google-chrome
 
 - name: Google Chrome | Configure default extensions
-  become: true
   ansible.builtin.copy:
     content: "{ \"external_update_url\": \"https://clients2.google.com/service/update2/crx\" }"
     dest: "/opt/google/chrome/default_apps/{{ item }}.json"

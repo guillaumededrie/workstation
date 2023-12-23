@@ -1,13 +1,11 @@
 ---
 
 - name: Wireshark | Install
-  become: true
   ansible.builtin.package:
     name:
       - wireshark-qt
 
 - name: Wireshark | Add user to group
-  become: true
   ansible.builtin.user:
     name: "{{ ansible_user_id }}"
     groups:

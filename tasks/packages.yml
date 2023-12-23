@@ -1,12 +1,10 @@
 ---
 
 - name: Packages | Update cache
-  become: true
   community.general.pacman:
     update_cache: true
 
 - name: Packages | Install
-  become: true
   ansible.builtin.package:
     name:
         # Dev common
@@ -114,12 +112,14 @@
     state: present
 
 - name: Packages | AUR | Install paru
+  become: false
   kewlfft.aur.aur:
     name: paru
     state: present
     use: makepkg
 
 - name: Packages | AUR | Install
+  become: false
   kewlfft.aur.aur:
     use: paru
     name:
