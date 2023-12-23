@@ -24,9 +24,9 @@
       ansible.builtin.import_tasks: tasks/nftables.yml
       tags: ['nftables']
 
-    - name: WPA Supplicant | Import tasks
-      ansible.builtin.import_tasks: tasks/wpa_supplicant.yml
-      tags: ['wpa_supplicant']
+    - name: Network | Import tasks
+      ansible.builtin.import_tasks: tasks/network.yml
+      tags: ['network']
 
     - name: Sound | Import tasks
       ansible.builtin.import_tasks: tasks/sound.yml

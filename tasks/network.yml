@@ -1,0 +1,27 @@
+---
+
+- name: NetworkManager | Installation
+  become: true
+  ansible.builtin.package:
+    name: "networkmanager"
+    state: present
+
+# See: https://wiki.archlinux.org/title/NetworkManager#Using_iwd_as_the_Wi-Fi_backend
+# NOTE: Decided to move from wpa_supplicant due to some Wi-Fi error issued by
+# wpa_supplicant that resulted in some computer freeze…
+- name: NetworkManager | Use iwd as the Wi-Fi backend
+  block:
+    - name: IWD | Installation
+      become: true
+      ansible.builtin.package:
+        name: "iwd"
+        state: present
+
+    - name: IWD | Copy configuration file
+      become: true
+      ansible.builtin.copy:
+        dest: "/etc/NetworkManager/conf.d/wifi_backend.conf"
+        mode: "0644"
+        content: |
+          [device]
+          wifi.backend=iwd
