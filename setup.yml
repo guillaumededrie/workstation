@@ -20,9 +20,9 @@
       ansible.builtin.import_tasks: tasks/compute_ansible_facts.yml
       tags: ['compute_ansible_facts']
 
-    - name: Nftables | Import tasks
-      ansible.builtin.import_tasks: tasks/nftables.yml
-      tags: ['nftables']
+    - name: Firewall | Import tasks
+      ansible.builtin.import_tasks: tasks/firewall.yml
+      tags: ['firewall']
 
     - name: Network | Import tasks
       ansible.builtin.import_tasks: tasks/network.yml
