@@ -50,8 +50,21 @@ and perform the following changes:
   * Use `LANG=en_US.UTF-8` as locale.
   * Add in `/etc/hosts`:
     ```shell
-    127.0.0.1 localhost <HOSTNAME>
-    ::1       localhost <HOSTNAME>
+    127.0.1.1 <HOSTNAME>
+    127.0.0.1 localhost
+    127.0.0.1 localhost.localdomain
+    127.0.0.1 local
+    255.255.255.255 broadcasthost
+    ::1 localhost
+    ::1 ip6-localhost
+    ::1 ip6-loopback
+    fe80::1%lo0 localhost
+    ff00::0 ip6-localnet
+    ff00::0 ip6-mcastprefix
+    ff02::1 ip6-allnodes
+    ff02::2 ip6-allrouters
+    ff02::3 ip6-allhosts
+    0.0.0.0 0.0.0.0
     ```
   * Configure initramfs:
     1. Remove `fallback` from presets (`/etc/mkinitcpio.d/linux.preset`):
