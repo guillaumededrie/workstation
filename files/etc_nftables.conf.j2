@@ -53,15 +53,15 @@ table inet firewall {
         type inet_proto . inet_service
         counter
         elements = {
-            tcp . 22,
-            tcp . 53,
-            udp . 53,
-            tcp . 80,
-            tcp . 443,
-            udp . 443,
-            tcp . 465,
-            tcp . 587,
-            tcp . 993,
+            tcp . 22, # SSH
+            tcp . 53, # DNS
+            udp . 53, # DNS
+            tcp . 80, # Web
+            tcp . 443, # TLS
+            udp . 443, # QUIC
+            tcp . 465, # SMTPs
+            tcp . 587, # SMTPs
+            tcp . 993, # IMAPs
         }
     }
 
