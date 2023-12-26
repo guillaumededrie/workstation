@@ -50,6 +50,7 @@ table inet firewall {
 
         meta l4proto . th dport @output_protocol_dport_authorized accept
         udp sport 123 udp dport 123 counter accept comment "accept NTP"
+        ip6 daddr ff02::1:2 udp sport 546 udp dport 547 accept comment "Accept DHCPv6 replies from IPv6 link-local addresses"
 
         log prefix "[nftables] Output Denied: " counter
     }
