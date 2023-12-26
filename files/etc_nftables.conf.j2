@@ -71,8 +71,8 @@ table inet firewall {
         oif lo accept
 
         meta l4proto . th dport @output_protocol_dport_authorized accept
-        icmp type echo-request accept
-        icmpv6 type echo-request accept
+        meta l4proto icmp accept
+        meta l4proto icmpv6 accept
 
         log prefix "[nftables] Output Denied: " counter
     }
