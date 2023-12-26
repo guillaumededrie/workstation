@@ -28,6 +28,7 @@ table inet firewall {
         iif != lo ip6 daddr ::1/128 counter drop comment "drop connections to loopback not coming from loopback"
         icmpv6 type { nd-neighbor-solicit, nd-router-advert, nd-neighbor-advert } accept
         ip6 saddr fe80::/10 udp sport 547 udp dport 546 accept comment "Accept DHCPv6 replies from IPv6 link-local addresses"
+        ip6 saddr fe80::/10 ip6 daddr ff02::fb udp dport 5353 accept comment "Accept mDNS"
     }
 
 
