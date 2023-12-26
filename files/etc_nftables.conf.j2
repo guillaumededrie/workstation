@@ -35,11 +35,8 @@ table inet firewall {
         type filter hook input priority filter; policy drop
 
         ct state vmap { established : accept, related : drop, invalid : drop }
-
-        iifname "lo" accept
-
+        iif lo accept
         meta protocol vmap { ip : jump input_ipv4, ip6 : jump input_ipv6 }
-
         log prefix "[nftables] Input Denied: " counter drop
     }
 
@@ -71,7 +68,7 @@ table inet firewall {
     chain output {
         type filter hook output priority filter; policy drop
 
-        oifname "lo" accept
+        oif lo accept
 
         meta l4proto . th dport @output_protocol_dport_authorized accept
         icmp type echo-request accept
