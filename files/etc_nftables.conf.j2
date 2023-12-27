@@ -40,7 +40,7 @@ table inet firewall {
 
 
     chain output {
-        type filter hook output priority filter; policy drop
+        type filter hook output priority filter; policy accept
 
         oif lo accept
 
@@ -53,7 +53,7 @@ table inet firewall {
 
         ip6 daddr ff02::1:2 udp sport 546 udp dport 547 accept comment "Accept DHCPv6 replies from IPv6 link-local addresses"
 
-        log prefix "[nftables] Output Denied: " counter
+        log prefix "[nftables] Output Denied: " counter reject
     }
 
 
