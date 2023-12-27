@@ -68,6 +68,10 @@ table inet firewall {
         # UPnP
         ip daddr 239.255.255.250 udp dport 1900 counter accept comment "Accept UPnP"
 
+        # Tailscale, see: https://tailscale.com/kb/1082/firewall-ports
+        udp sport 41641 counter accept comment "Allow Tailscale Direct Wireguard tunnels"
+        udp dport 3478 counter accept comment "Allow STUN protocol behind NAT"
+
         log prefix "[nftables] Output Denied: " counter reject
     }
 
