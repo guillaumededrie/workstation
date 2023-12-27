@@ -12,25 +12,24 @@ table inet firewall {
         type filter hook input priority filter; policy drop
 
         ct state vmap { established : accept, related : drop, invalid : drop }
-        iif lo accept
 
-        meta protocol vmap { ip : jump input_ipv4, ip6 : jump input_ipv6 }
+        # Interface lo restrictions
+        iif lo accept
+        iif != lo ip daddr 127.0.0.1/8 counter drop comment "drop connections to loopback not coming from loopback"
+        iif != lo ip6 daddr ::1/128 counter drop comment "drop connections to loopback not coming from loopback"
+
+        # ICMP restrictions
+        icmpv6 type { nd-neighbor-solicit, nd-router-advert, nd-neighbor-advert } accept
+
+        # mDNS restrictions
+        ip saddr @LANv4 ip daddr 224.0.0.251 udp dport 5353 counter accept comment "Accept mDNS on local networks"
+        ip6 saddr @LANv6 ip6 daddr ff02::fb udp dport 5353 accept comment "Accept mDNS"
+
+        # DHCP restrictions
+        ip6 saddr fe80::/10 udp sport 547 udp dport 546 accept comment "Accept DHCPv6 replies from IPv6 link-local addresses"
 
         log prefix "[nftables] Input Denied: " counter drop
     }
-
-    chain input_ipv4 {
-        iif != lo ip daddr 127.0.0.1/8 counter drop comment "drop connections to loopback not coming from loopback"
-        ip saddr @LANv4 ip daddr 224.0.0.251 udp dport 5353 counter accept comment "Accept mDNS on local networks"
-    }
-
-    chain input_ipv6 {
-        iif != lo ip6 daddr ::1/128 counter drop comment "drop connections to loopback not coming from loopback"
-        icmpv6 type { nd-neighbor-solicit, nd-router-advert, nd-neighbor-advert } accept
-        ip6 saddr fe80::/10 udp sport 547 udp dport 546 accept comment "Accept DHCPv6 replies from IPv6 link-local addresses"
-        ip6 saddr fe80::/10 ip6 daddr ff02::fb udp dport 5353 accept comment "Accept mDNS"
-    }
-
 
     chain forward {
         type filter hook forward priority security; policy drop
@@ -45,11 +44,13 @@ table inet firewall {
 
         oif lo accept
 
+        meta l4proto . th dport @output_protocol_dport_authorized accept
+        udp sport 123 udp dport 123 counter accept comment "accept NTP"
+
+        # ICMP restrictions
         meta l4proto icmp accept
         meta l4proto icmpv6 accept
 
-        meta l4proto . th dport @output_protocol_dport_authorized accept
-        udp sport 123 udp dport 123 counter accept comment "accept NTP"
         ip6 daddr ff02::1:2 udp sport 546 udp dport 547 accept comment "Accept DHCPv6 replies from IPv6 link-local addresses"
 
         log prefix "[nftables] Output Denied: " counter
