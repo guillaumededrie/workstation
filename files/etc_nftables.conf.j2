@@ -71,6 +71,9 @@ table inet firewall {
         # Tailscale, see: https://tailscale.com/kb/1082/firewall-ports
         udp sport 41641 counter accept comment "Allow Tailscale Direct Wireguard tunnels"
         udp dport 3478 counter accept comment "Allow STUN protocol behind NAT"
+        # But also https://forum.tailscale.com/t/strictest-set-of-possible-firewall-rules/1367/10
+        ip daddr 203.0.113.1 udp dport 12345 counter accept comment "Allow Tailscale…"
+        ip daddr @LANv4 udp dport { 1900, 5351 } counter accept comment "Allow Tailscale UPnP and PCP"
 
         log prefix "[nftables] Output Denied: " counter reject
     }
