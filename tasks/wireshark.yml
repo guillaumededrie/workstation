@@ -6,6 +6,7 @@
       - wireshark-qt
 
 - name: Wireshark | Add user to group
+  ignore_errors: "{{ ansible_check_mode }}"
   ansible.builtin.user:
     name: "{{ ansible_user_id }}"
     groups:
