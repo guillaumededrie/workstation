@@ -58,6 +58,10 @@ table inet firewall {
         # DHCPv6
         ip6 daddr ff02::1:2 udp sport 546 udp dport 547 accept comment "Accept DHCPv6 replies from IPv6 link-local addresses"
 
+        # mDNS
+        ip daddr 224.0.0.251 udp dport 5353 counter accept comment "Accept mDNS on local networks"
+        ip6 daddr ff02::fb udp dport 5353 accept comment "Accept mDNS"
+
         log prefix "[nftables] Output Denied: " counter reject
     }
 
