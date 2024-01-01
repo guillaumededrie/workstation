@@ -1,0 +1,9 @@
+[font.bold]
+style = "Bold"
+
+[font.normal]
+family = "FiraCode Nerd Font"
+style = "Regular"
+
+[shell]
+program = "/usr/bin/fish"
