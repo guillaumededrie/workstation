@@ -29,7 +29,7 @@ table inet firewall {
         # DHCP restrictions
         ip6 saddr fe80::/10 udp sport 547 udp dport 546 accept comment "Accept DHCPv6 replies from IPv6 link-local addresses"
 
-        log prefix "[nftables] Input Denied: " counter drop
+        log prefix "[nftables] Input Denied: " counter
     }
 
     chain forward {
@@ -43,7 +43,7 @@ table inet firewall {
 
     chain output {
         type filter hook output priority filter;
-        policy accept;
+        policy drop;
 
         oif lo accept
 
@@ -75,7 +75,7 @@ table inet firewall {
         ip daddr 203.0.113.1 udp dport 12345 counter accept comment "Allow Tailscale…"
         ip daddr @LANv4 udp dport { 1900, 5351 } counter accept comment "Allow Tailscale UPnP and PCP"
 
-        log prefix "[nftables] Output Denied: " counter reject
+        log prefix "[nftables] Output Denied: " counter
     }
 
 
