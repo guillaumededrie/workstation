@@ -152,6 +152,15 @@ autocmd BufRead,BufNewFile *.py
     \ set autoindent |
     \ set fileformat=unix
 
+" Web
+autocmd BufRead,BufNewFile .html .css
+    \ set tabstop=2 |
+    \ set softtabstop=2 |
+    \ set shiftwidth=2 |
+    \ set expandtab |
+    \ set autoindent |
+    \ set fileformat=unix
+
 
 " UndoTree
 nnoremap <F5> :UndotreeToggle<cr>
