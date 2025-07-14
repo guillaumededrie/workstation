@@ -71,6 +71,7 @@
 
         # Office
       - borgmatic
+      - brightnessctl
       - hunspell
       - hunspell-en_us
       - hunspell-fr
