@@ -9,30 +9,22 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v4
 
-        # Setup Python (faster than using Python container)
-      - name: Setup Python
-        uses: actions/setup-python@v5
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
         with:
-          python-version: "3.11"
+          enable-cache: true
 
-      - name: Install pipenv
-        run: python -m pip install --upgrade pipenv wheel
-
-      - id: cache-pipenv
-        uses: actions/cache@v4
-        with:
-          path: ~/.local/share/virtualenvs
-          key: ${{ runner.os }}-pipenv-${{ hashFiles('**/Pipfile.lock') }}
+      - name: Set up Python
+        run: uv python install
 
       - name: Install Python dependencies
-        if: steps.cache-pipenv.outputs.cache-hit != 'true'
-        run: pipenv install --dev
+        run: uv sync --locked --all-extras --dev
 
-      - name: Install Ansible Collections
-        run: pipenv run ansible-galaxy collection install --requirements-file ansible-galaxy-requirements.yml
+      - name: Install Ansible dependencies
+        run: uv run ansible-galaxy collection install -r ansible-galaxy-requirements.yml
 
       - name: Run Linter
-        run: pipenv run ansible-lint setup.yml -vv
+        run: uv run ansible-lint setup.yml -vv
 
       - name: Run Ansible Syntax Check
-        run: pipenv run ./setup.yml --syntax-check -vvvv
+        run: uv run ./setup.yml --syntax-check -vvvv
