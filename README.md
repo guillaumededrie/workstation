@@ -192,8 +192,8 @@ Restart if needed!
 # Preparation
 $ sudo reflector --country France --age 12 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
 $ sudo pacman -Syy
-  # NOTE: Update `archlinux-keyring` first as new keys can be required by the
-  # full system update.
+## NOTE: Update `archlinux-keyring` first as new keys can be required by the
+## full system update.
 $ sudo pacman -S archlinux-keyring
 
 # Update
@@ -201,10 +201,15 @@ $ sudo pacman -Su
 $ paru -Sua
 $ vim +PlugUpgrade +PlugUpdate
 
-# Cleanups
-$ sudo pacdiff
-  # Remove orphan packages.
+# Remove orphan packages.
 $ sudo pacman -Rns $(pacman -Qtdq)
+
+$ sudo shutdown -r now
+
+# Checks
+$ sudo checkservices
+
+# Clean Journalctl after reboot
 $ sudo journalctl --vacuum-time=8d
 ```
 

@@ -7,6 +7,9 @@
 - name: Packages | Install
   ansible.builtin.package:
     name:
+        # Arch Related
+      - archlinux-contrib
+
         # Dev common
       - bandit
       - base-devel
