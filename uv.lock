@@ -9,7 +9,7 @@ supported-markers = [
 ]
 
 [[package]]
-name = ""
+name = "workstation"
 version = "0.0.1"
 source = { virtual = "." }
 dependencies = [
